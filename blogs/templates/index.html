@@ -1,0 +1,52 @@
+{% extends "base.html"%}
+{% load static %}
+
+{% block css_files %}
+
+    <link rel="stylesheet" href="{% static 'app.css' %}"> {% endblock %}
+{% block page_title %} our blog post home page {% endblock %}
+    
+{% block body_content %}  
+ 
+
+{% include "header.html" with active_page="all posts"%}
+
+
+
+<section style="text-align: center;padding: 50px; background-color: #f4f4f4;">
+    <header style="text-align: center;"> 
+    <h1 style="font-size: 50px;">Welcome to my Blog posts</h1>
+    <h2>This is our Home Page</h2>
+    <img src=" {% static 'img/salary.png' %}" alt="author" style="display: block; margin: auto;">
+    </header>
+</section>
+<section>
+    <h2>Featured posts</h2>
+</section>
+
+<section style="display: flex; justify-content: center;gap: 30px; flex-wrap: wrap;">
+    
+    <ul>
+        {% for blog in l_blogs %}
+        <div style="width: 700px;
+        background-color: beige;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 0 10px gray;
+        gap: 30px;">
+        <li>
+             <article><a href="{% url 'blog-post' blog=blog.slug %}">{{blog.title }}</a>
+                     <div>   <img src="{% static 'img/'|add:blog.img %}" alt="{{ blog.title}}" height="200" width="200">
+                    </div>
+                    <div>
+                        <p>{{ blog.preview }}</p>
+                     </div>
+                
+                </article>
+         </li>
+        </div>
+        {% endfor %}
+    </ul>
+</section>
+
+{% endblock %}

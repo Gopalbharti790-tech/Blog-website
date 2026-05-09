@@ -1,0 +1,42 @@
+{% extends "base.html"%}
+{% load static %}
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'app.css' %}">
+    
+{% endblock %}
+
+{% block page_title %} All Posts {% endblock %}
+
+{% block body_content %}  
+ {% include "header.html" with active_page="allpost"%}
+<h1 >Welcome</h1>
+<h2 >All Blog Posts</h2>
+<section style="
+justify-content: center;
+display:flex ; flex-wrap: wrap;gap: 30px; ">
+    
+
+    <ul>
+        {% for blog in blogs %}
+        <div style="width: 700px;
+        background-color: beige;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 0 10px gray;
+        gap: 30px;">
+            <li>
+                <article><a href="{% url 'blog-post' blog=blog.slug %}">{{blog.title }}</a>
+                    <div>   
+                        <img src="{% static 'img/'|add:blog.img %}" alt="{{ blog.title}}" height="200" width="200" >
+                    </div>
+                    <div>
+                        <p>{{ blog.preview }}</p>
+                    </div>
+                
+            </article>
+            </li>
+        </div>
+        {% endfor %}
+    </ul>
+</section>
+{% endblock %}
